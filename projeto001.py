@@ -1,7 +1,7 @@
 #projeto001 Tratamento de Dados
 
 
-def bias():  
+def bias(path, numbers, filtro):  
     '''
     O primeiro passo de um processo de tratamento de dados padrão IRAF é fazer a correção 
     do bias, para tanto é necessário tirar a mediana dos bias para poder remove-los das demais 
@@ -10,9 +10,10 @@ def bias():
     A mediana deve ser feita elemento por elemento da matriz de dados das imagens bias, para tanto
     é necessário que o usuario forneça o caminho do diretório que contem as imagens bias, e a
     quantidade de imagens bais que possui. Exemplo:
-        bias('/home/brambila/UFRJ/TDA/projeto_1_tda/xo2b/', 3)
+        bias('/home/brambila/UFRJ/TDA/projeto_1_tda/xo2b/', 3, 'B')
         #/home/brambila/UFRJ/TDA/projeto_1_tda/xo2b/ -> caminho do diretório
         #3 -> quantidade de imagens bias
+        #B -> filtro da imagem
 
         array([[ 286.88000488,  285.87915039,  288.06213379, ...,  315.57910156,
             316.58032227,  316.63049316],
@@ -27,6 +28,8 @@ def bias():
             314.63500977,  314.71636963],
         [ 284.61010742,  284.05200195,  284.60986328, ...,  313.63592529,
             313.63568115,  313.71594238]])
+    É necessário que os nomes das imagens sigam um padrão para que o programa funcione:
+        bias.B.0001.fits, bias.B.0002.fits, ..., bias.B.0010.fits, ..., bias.B.0100.fits, etc
     '''
 
     #%matplotlib inline 
@@ -42,15 +45,22 @@ def bias():
     bias_images = []    
     bias_header = []
 
+# o loop ira percorrer o diretório abrindo as imagens, salvando seus dados e header nas listas
+# acima
     for i in range (numbers):
-        a=str(i+1)
+        a=str(i+1)  #nao existe imagens 0, portanto é necessário incrementar o contador
+        # decide a forma que os nomes estão escritos
         if i+1 == 10:
-            bias_path = path + 'bias.B.00%s.fits' %str(a)
+            bias_path = path + 'bias.%s.00%s.fits' %(fitro, str(a))
         else:
-            bias_path = path + 'bias.B.000%s.fits' %str(a)
+            bias_path = path + 'bias.%s.000%s.fits' %(filtro, str(a))
+        #abre a imagem atual e o hedaer atual
         img, hdr = fits.getdata(bias_path, header=True)
+        # converte os dados para float64
         img = np.array(img, dtype='Float64')   
+        #adiciona a imagem e o header na suas respectivas listas
         bias_images.append(img)
         bias_header.append(hdr)
+#faz a mediana elemento a elemento (axix=0)
 bias_median = np.median(bias_images, axis=0)
 return bias_median
