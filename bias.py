@@ -6,7 +6,6 @@ def bias(path, numbers, filtro):
     O primeiro passo de um processo de tratamento de dados padrão IRAF é fazer a correção 
     do bias, para tanto é necessário tirar a mediana dos bias para poder remove-los das demais 
     imagens
-
     A mediana deve ser feita elemento por elemento da matriz de dados das imagens bias, para tanto
     é necessário que o usuario forneça o caminho do diretório que contem as imagens bias, e a
     quantidade de imagens bais que possui. Exemplo:
@@ -14,7 +13,6 @@ def bias(path, numbers, filtro):
         #/home/brambila/UFRJ/TDA/projeto_1_tda/xo2b/ -> caminho do diretório
         #3 -> quantidade de imagens bias
         #B -> filtro da imagem
-
         array([[ 286.88000488,  285.87915039,  288.06213379, ...,  315.57910156,
             316.58032227,  316.63049316],
         [ 285.38061523,  285.38134766,  286.38110352, ...,  311.60235596,
