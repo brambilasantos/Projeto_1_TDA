@@ -44,7 +44,7 @@ def iniciando_correcoes():
         vmax=np.mean(imagem_pos_bias)+2.5*np.std(imagem_pos_bias),cmap=plt.cm.gray,origin='lower') #plot a segunda imagem
     eixos[1].set_title("Depois do Bias") #nomeia o segundo gráfico
     plt.show()#mostra a imagem
-    #
+    print('Bias realizado')
     print ('Realizando o Flat')
     #abre as imanges corrigdas para flat e bias
     imagem_pos_flat = fbimagens(bcaminho,fcaminho,icaminho,campo,bnumero,fnumero,filtro)[0] 
@@ -58,7 +58,7 @@ def iniciando_correcoes():
         vmax=np.mean(imagem_pos_flat)+2.5*np.std(imagem_pos_flat),cmap=plt.cm.gray,origin='lower')
     eixos[1].set_title("Depois do Flat")
     plt.show()
-    #        
+    print('Flat Field realizado')        
     print ('Realizando o Sky')
     #chama a função do arquivo correcoes que corrige o sky
     imagens_ciencia = sfbimagens(bcaminho,fcaminho,icaminho,campo,bnumero,fnumero,filtro)
@@ -74,5 +74,3 @@ def iniciando_correcoes():
     plt.show()
     print ("Todas as correções foram realizadas")  
     return imagens_ciencia
-
-/home/brambila/UFRJ/TDA/projeto_1_tda/xo2b/
