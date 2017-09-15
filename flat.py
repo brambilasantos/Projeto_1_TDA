@@ -1,4 +1,4 @@
-#remove o bias do flat
+#Remove o bias do flat, normaliza e faz a mediana
 
 from bias import bias_median
 from astropy.io import fits
