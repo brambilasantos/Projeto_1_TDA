@@ -1,4 +1,4 @@
-#calcula a mediana do bias
+#Calcula a mediana do bias
 
 import numpy as np #pacote para trabalhar com matrizes
 from astropy.io import fits #pacote para trabalhar com imagens em formato fits
