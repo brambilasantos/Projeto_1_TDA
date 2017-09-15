@@ -13,14 +13,16 @@ def abrindo_imagens(icaminho,campo):
     '''
     #lista onde sera adicionado as imagens
     IMG = []
+    HDR = []
     for nome_imagem in glob.glob(icaminho+'%s.*.fits'%campo): 
         #função glob abre imagens fits indentificando todas as imagens que tem um padrão de nomenclatura igual ao indicado
         #como parametro da função. O * implica na abertura de todas as imagens com esse padrão campo.numero.fits
-        img = fits.getdata(nome_imagem, header=False) #salva em img apenas a matriz de dados
+        img, hdr = fits.getdata(nome_imagem, header=True) #salva em img apenas a matriz de dados
         # converte os dados para float64        
         img = np.array(img, dtype='Float64')   
         IMG.append(img) #adiciona os dados atuais na lista geral de dados
-    return IMG
+        HDR.append(hdr)
+    return IMG, HDR
  
 def imagem_sky(bcaminho,fcaminho,icaminho,campo,bnumero,fnumero,filtro):
     ''' Essa é a função responsavel por corrigir o background das imagens. Ela ira fornecer uma imagem exemplar das
@@ -32,7 +34,7 @@ def imagem_sky(bcaminho,fcaminho,icaminho,campo,bnumero,fnumero,filtro):
     Tem como saída uma matriz com as dimensões da imagem construida a partir de uma distribuição poissonica com média  
     obitida nos valores da região indica pelo usuário.
     '''
-    imagem = abrindo_imagens(icaminho, campo)[0] #abre a imagem a ser cálculado o background
+    imagem = abrindo_imagens(icaminho, campo)[0][0] #abre a imagem a ser cálculado o background
     #plota a imagem para o usuário determinar a região
     plt.figure()
     fig, eixos = plt.subplots(nrows=1, ncols=1, figsize=(15,10))

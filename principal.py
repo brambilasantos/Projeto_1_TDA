@@ -31,7 +31,7 @@ def iniciando_correcoes():
     
     print('Realizando o Bias')
     #chama a função do arquivo sky que abre as imagens originais
-    imagem_original = sky.abrindo_imagens(icaminho,campo)[0] 
+    imagem_original = sky.abrindo_imagens(icaminho,campo)[0][0] 
     #chama a função do arquivo correcoes que corrige as imagens originais pro bias
     imagem_pos_bias = bimagens(bcaminho,icaminho,campo,bnumero,filtro)[0]                                                    #
     #plota as imagens antes e depois da correção bias para comparação
@@ -74,3 +74,4 @@ def iniciando_correcoes():
     plt.show()
     print ("Todas as correções foram realizadas")  
     return imagens_ciencia
+
