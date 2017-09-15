@@ -1,6 +1,9 @@
 #calcula a mediana do bias
 
-def bias_median(path, numbers, filtro):  
+import numpy as np #pacote para trabalhar com matrizes
+from astropy.io import fits #pacote para trabalhar com imagens em formato fits
+
+def bias_median(path, numbers, filtro):
     '''
     O primeiro passo de um processo de tratamento de dados padrão IRAF é fazer a correção 
     do bias, para tanto é necessário tirar a mediana dos bias para poder remove-los das demais 
@@ -25,24 +28,18 @@ def bias_median(path, numbers, filtro):
             314.63500977,  314.71636963],
         [ 284.61010742,  284.05200195,  284.60986328, ...,  313.63592529,
             313.63568115,  313.71594238]])
-    É necessário que os nomes das imagens sigam um padrão para que o programa funcione:
-        bias.B.0001.fits, bias.B.0002.fits, ..., bias.B.0010.fits, ..., bias.B.0100.fits, etc
-    '''
-    #pacote para trabalhar com matrizes
-    import numpy as np 
-    from astropy.io import fits
-
-#criando listas vazias onde serão adicionado os dados e os headers de cada imagens bias no diretŕoio
+    '''  
+    #criando listas vazias onde serão adicionado os dados e os headers de cada imagens bias no diretŕoio
     bias_images = []    
     bias_header = []
-
-# o loop ira percorrer o diretório abrindo as imagens, salvando seus dados e header nas listas
-# acima
+    
+    # o loop ira percorrer o diretório abrindo as imagens, salvando seus dados e header nas listas
+    # acima
     for i in range (numbers):
         a=str(i+1)  #nao existe imagens 0, portanto é necessário incrementar o contador
         # decide a forma que os nomes estão escritos
         if i+1 >= 10:
-            bias_path = path + 'bias.%s.00%s.fits' %(fitro, str(a))
+            bias_path = path + 'bias.%s.00%s.fits' %(filtro, str(a))
         else:
             bias_path = path + 'bias.%s.000%s.fits' %(filtro, str(a))
         #abre a imagem atual e o hedaer atual
