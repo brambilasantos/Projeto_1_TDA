@@ -1,3 +1,5 @@
+#Arquivo principal que deve ser executado para se realizar as reducoes
+
 import matplotlib.pyplot as plt
 from correcoes import *
 import bias
